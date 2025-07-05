@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 # MERN Stack Todo List App (with MySQL)
 
 A simple, full-stack Todo List application using React (frontend), Node.js/Express (backend), and MySQL (database).
+=======
+
+>>>>>>> 8b6420ca0111f8682a5b902041cb07cfbbc1b755
 
 ## 🚀 Features
 - Add, edit, and mark todos as completed
