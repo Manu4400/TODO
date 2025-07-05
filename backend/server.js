@@ -65,6 +65,19 @@ todoRoutes.route('/update/:id').post((req, res) => {
   );
 });
 
+todoRoutes.route('/delete/:id').delete((req, res) => {
+  const id = req.params.id;
+  console.log('Marking todo as completed with id:', id);
+  connection.query(
+    'UPDATE todos SET todo_completed = 1 WHERE id = ?',
+    [id],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: err });
+      res.json({ message: 'Todo marked as completed' });
+    }
+  );
+});
+
 app.use('/todos', todoRoutes);
 
 app.listen( PORT, () => {

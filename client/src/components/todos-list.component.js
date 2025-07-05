@@ -14,7 +14,7 @@ const Todo = props => (
             )}
         </td>
     </tr>
-)
+);
 
 
 export default class TodosList extends Component {
@@ -55,9 +55,28 @@ export default class TodosList extends Component {
         this._isMounted = false;
     }
 
-    todoList = () => this.state.todos.map(
-        (todo, index) => <Todo todo={todo} key={index} />
-    )
+    onDelete = (id) => {
+        axios.delete('http://localhost:4000/todos/delete/' + id)
+            .then(res => {
+                // Remove the deleted todo from state
+                this.setState({
+                    todos: this.state.todos.filter(todo => todo.id !== id)
+                });
+            })
+            .catch(err => console.log(err));
+    }
+
+    todoList = () => this.state.todos
+        .filter(todo =>
+            todo &&
+            todo.todo_description &&
+            todo.todo_responsible &&
+            todo.todo_priority &&
+            !todo.todo_completed // Only show incomplete todos
+        )
+        .map((todo, index) =>
+            <Todo todo={todo} key={index} onDelete={this.onDelete} />
+        );
     
 
     render() {
